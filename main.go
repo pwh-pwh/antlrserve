@@ -35,6 +35,9 @@ func main() {
 		writer.Header().Set("Content-Type", "image/jpeg")
 		io.Copy(writer, imgFile)
 	})
+	http.HandleFunc("/health", func(writer http.ResponseWriter, request *http.Request) {
+		writer.Write([]byte("health"))
+	})
 	err := http.ListenAndServe(":8888", nil)
 	if err != nil {
 		log.Println("serve error:", err)
